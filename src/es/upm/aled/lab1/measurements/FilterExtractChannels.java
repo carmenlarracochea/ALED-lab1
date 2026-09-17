@@ -14,6 +14,7 @@ public class FilterExtractChannels implements Filter {
 	 * @param validChannels The channel numbers to be extracted, starting from 0.
 	 */
 	public FilterExtractChannels(int[] validChannels) {
+		
 		// TODO
 		
 	}

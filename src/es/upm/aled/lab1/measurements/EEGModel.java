@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -56,8 +58,9 @@ public class EEGModel {
 	 * @param measurements The Measurements that make up the EEGModel.
 	 */
 	public EEGModel(Measurement[] measurements) {
-		// TODO
-		
+		for (Measurement measur : measurements) {
+			this.measurements.add(measur);
+		}
 	}
 
 	/**
@@ -130,7 +133,11 @@ public class EEGModel {
 	 * @throws IOException Thrown if the file can't be written.
 	 */
 	public void saveFile(String fileName) throws IOException {
-		// TODO
+		File f = new File(fileName);
+		FileOutputStream fos = new FileOutputStream(f);
+		PrintStream fps = new PrintStream(fos);
+		fos.close();
+		
 		
 	}
 
@@ -245,7 +252,7 @@ public class EEGModel {
 		return new Measurement(curDataPacket_values);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 			eeg.plotData();
@@ -254,7 +261,7 @@ public class EEGModel {
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			// TODO
+			eeg.saveFile("Synthetic.txt");
 			
 		}
 	}
