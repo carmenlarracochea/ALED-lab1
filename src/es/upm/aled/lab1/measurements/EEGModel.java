@@ -92,10 +92,9 @@ public class EEGModel {
 	 * @return The new EEGModel.
 	 */
 	public EEGModel filter(Filter filter) {
-		// TODO
+		return filter.applyFilter(this);	// this pq es sobre si mismo
 		
-		return null;
-	}
+		}
 
 	/**
 	 * Fills the measurements from the contents of an OpenBCI file, a CSV file in
@@ -255,8 +254,11 @@ public class EEGModel {
 	public static void main(String[] args) throws IOException {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
+			int[] validChannels =  {8,9,10};
+			eeg = eeg.filter(new FilterExtractChannels(validChannels));
+			eeg = eeg.filter(new FilterExtractPeriod(2750,5750));
 			eeg.plotData();
-			// TODO
+
 			
 		} else {
 			EEGModel eeg = new EEGModel();

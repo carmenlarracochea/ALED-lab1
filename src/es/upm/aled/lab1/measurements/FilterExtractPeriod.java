@@ -8,6 +8,9 @@ package es.upm.aled.lab1.measurements;
  */
 public class FilterExtractPeriod implements Filter {
 
+	private int min;
+	private int max;
+
 	/**
 	 * Builds the Filter from the [min, max] range defining the period that needs to
 	 * be extracted. min and max are the indexes of the first and last measurements
@@ -20,14 +23,23 @@ public class FilterExtractPeriod implements Filter {
 	 * @param max End of the period to be extracted.
 	 */
 	public FilterExtractPeriod(int min, int max) {
-		// TODO
+		this.min = min;
+		this.max = max;
 		
 	}
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
-		// TODO
+		Measurement[] medidasOriginales = eeg.getMeasurements();
+		int numMuestras = this.max - this.min + 1;
+		Measurement[] medidasFiltradas = new Measurement[numMuestras];
 		
-		return null;
+		int index = 0;
+		for(int i = this.min; i <= this.max; i++) {
+			medidasFiltradas[index] = medidasOriginales[i];
+			index++;
+		}
+				
+		return new EEGModel (medidasFiltradas);
 	}
 }
