@@ -30,16 +30,13 @@ public class FilterExtractPeriod implements Filter {
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
+		EEGModel eegFiltered = new EEGModel();
 		Measurement[] medidasOriginales = eeg.getMeasurements();
-		int numMuestras = this.max - this.min + 1;
-		Measurement[] medidasFiltradas = new Measurement[numMuestras];
-		
-		int index = 0;
+				
 		for(int i = this.min; i <= this.max; i++) {
-			medidasFiltradas[index] = medidasOriginales[i];
-			index++;
+			eegFiltered.addMeasurement(medidasOriginales[i]);
 		}
 				
-		return new EEGModel (medidasFiltradas);
+		return eegFiltered;
 	}
 }
